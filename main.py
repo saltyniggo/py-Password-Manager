@@ -19,9 +19,9 @@ while runToken == True:
         print("You have failed too many times.")
         print("Please verify that you are a human.")
         print(f"What is {verifyX} + {verifyY}?")
-        print(verifySolution)
         verifyInput = input()
-        if verifyInput is verifySolution:
+        verifyInput = int(verifyInput)
+        if verifyInput == verifySolution:
             print("Alright, try again to access!")
             accessAttempts = 0
         else:
