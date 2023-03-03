@@ -1,17 +1,32 @@
 import random
+import sqlite3
 
 masterPassword = '1234'
 runToken = True
 accessAttempts = 0
+accessSucceeded = False
 
 while runToken == True:
-    print("Welcome to your password manager")
-    print("")
-    print(accessAttempts)
-    print("Please enter the Master Password:")
-    userMasterPassword = input("")
-    if userMasterPassword == masterPassword:
-        print("Access successful!")
+    if accessSucceeded == False:
+        print("Welcome to your password manager")
+        print("")
+        print("Please enter the Master Password:")
+        userMasterPassword = input("")
+    if userMasterPassword == masterPassword or accessSucceeded:
+        if accessSucceeded == False:
+            accessSucceeded = True
+            print("Access successful!")
+        conn = sqlite3.connect('donthackmeplease.db')
+        print("Was willst du tun?:")
+        userSelection = input('')
+        if userSelection == '1':
+            accessData()
+        elif userSelection == '2':
+            inputData()
+        elif userSelection == '3':
+            changeData()
+        else:
+            print("Wrong input")
     elif accessAttempts >= 5:
         verifyX = random.randint(1, 10)
         verifyY = random.randint(1, 10)
