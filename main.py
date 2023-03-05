@@ -2,7 +2,7 @@ import random
 import sqlite3
 from access import accessData
 from input import inputData
-# test
+
 masterPassword = '1234'
 runToken = True
 accessAttempts = 0
