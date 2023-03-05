@@ -18,5 +18,3 @@ def inputData():
                      (website, email, username, password))
         conn.commit()
         print("Login data added successfully.")
-
-##test
