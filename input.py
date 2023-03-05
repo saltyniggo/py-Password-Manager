@@ -7,6 +7,14 @@ def inputData():
     email = input("Enter Email: ")
     username = input("Enter username: ")
     password = input("Enter password: ")
-    conn.execute("INSERT INTO passwords (website, email, username, password) VALUES (?, ?, ?, ?)",
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM passwords WHERE website = ? AND email = ? AND username = ? AND password = ?",
                 (website, email, username, password))
-    conn.commit()
+    existing_data = cur.fetchone()
+    if existing_data:
+        print("Login data already exists for this account.")
+    else:
+        conn.execute("INSERT INTO passwords (website, email, username, password) VALUES (?, ?, ?, ?)",
+                     (website, email, username, password))
+        conn.commit()
+        print("Login data added successfully.")
