@@ -1,7 +1,8 @@
 import sqlite3
 
-def createTable():
-    CREATE TABLE IF NOT EXISTS logins (
-        username text
-        name
-    )
+conn = sqlite3.connect('donthackmeplease.db')
+
+def accessData():
+    cursor = conn.execute("SELECT * FROM passwords")
+    for row in cursor:
+        print(row)

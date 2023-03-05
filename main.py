@@ -1,6 +1,7 @@
 import random
 import sqlite3
-import access.py
+from access import accessData
+from input import inputData
 
 masterPassword = '1234'
 runToken = True
@@ -18,6 +19,11 @@ while runToken == True:
             accessSucceeded = True
             print("Access successful!")
         conn = sqlite3.connect('donthackmeplease.db')
+        conn.execute('''CREATE TABLE IF NOT EXISTS passwords
+                     (website TEXT,
+                      email TEXT,
+                      username TEXT,
+                      password TEXT NOT NULL);''')
         print("Was willst du tun?:")
         userSelection = input('')
         if userSelection == '1':
