@@ -11,14 +11,15 @@ def inputdata():
     password = input("Enter password: ")
     if account and password and (email or username):
         cur = conn.cursor()
-        cur.execute("SELECT * FROM passwords WHERE account = ? AND website = ? AND email = ? AND username = ? AND password = ?",
-                 (account, website, email, username, password))
+        cur.execute(
+            "SELECT * FROM passwords WHERE account = ? AND website = ? AND email = ? AND username = ? AND password = ?",
+            (account, website, email, username, password))
         existing_data = cur.fetchone()
         if existing_data:
-           print("Login data already exists for this account.")
+            print("Login data already exists for this account.")
         else:
             conn.execute("INSERT INTO passwords (account, website, email, username, password) VALUES (?, ?, ?, ?, ?)",
-                        (account, website, email, username, password))
+                         (account, website, email, username, password))
             conn.commit()
             print("Login data added successfully.")
     else:
