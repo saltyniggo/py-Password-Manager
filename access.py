@@ -1,6 +1,6 @@
-import sqlite3
+from sqlite3 import connect
 
-conn = sqlite3.connect('donthackmeplease.db')
+conn = connect('donthackmeplease.db')
 
 
 def accessdata():

@@ -1,7 +1,8 @@
-import random
-import sqlite3
+from sqlite3 import connect
+from random import randint
 from access import accessdata
 from input import inputdata
+from change import changedata
 
 masterPassword = '1234'
 runToken = True
@@ -18,7 +19,7 @@ while runToken:
         if not accessSucceeded:
             accessSucceeded = True
             print("Access successful!")
-        conn = sqlite3.connect('donthackmeplease.db')
+        conn = connect('donthackmeplease.db')
         conn.execute('''CREATE TABLE IF NOT EXISTS passwords
                      (account TEXT,
                       website TEXT,
@@ -31,13 +32,13 @@ while runToken:
             accessdata()
         elif userSelection == '2':
             inputdata()
-        # elif userSelection == '3':
-            # changedata()
+        elif userSelection == '3':
+            changedata()
         else:
             print("Wrong input")
     elif accessAttempts >= 5:
-        verifyX = random.randint(1, 10)
-        verifyY = random.randint(1, 10)
+        verifyX = randint(1, 10)
+        verifyY = randint(1, 10)
         verifySolution = verifyX + verifyY
         print("You have failed too many times.")
         print("Please verify that you are a human.")
