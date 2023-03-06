@@ -1,4 +1,5 @@
 from sqlite3 import connect
+from subprocess import call
 
 conn = connect('donthackmeplease.db')
 
@@ -13,4 +14,5 @@ def accessdata():
         print("No matching login data found.")
     else:
         for row in rows:
+            call("clear", shell=True)
             print(row)

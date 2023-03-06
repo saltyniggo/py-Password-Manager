@@ -3,6 +3,7 @@ from random import randint
 from access import accessdata
 from input import inputdata
 from change import changedata
+from subprocess import call
 
 masterPassword = '1234'
 runToken = True
@@ -11,10 +12,12 @@ accessSucceeded = False
 
 while runToken:
     if not accessSucceeded:
+        call("clear", shell=True)
         print("Welcome to your password manager")
         print("")
         print("Please enter the Master Password:")
         userMasterPassword: str = input()
+        call("clear", shell=True)
     if userMasterPassword == masterPassword or accessSucceeded:
         if not accessSucceeded:
             accessSucceeded = True
@@ -27,7 +30,11 @@ while runToken:
                       username TEXT,
                       password TEXT NOT NULL);''')
         print("What do you want to do?:")
+        print("1 - Access Data")
+        print("2 - Input Data")
+        print("3 - Change Data")
         userSelection = input('')
+        call("clear", shell=True)
         if userSelection == '1':
             accessdata()
         elif userSelection == '2':
@@ -36,6 +43,7 @@ while runToken:
             changedata()
         else:
             print("Wrong input")
+
     elif accessAttempts >= 5:
         verifyX = randint(1, 10)
         verifyY = randint(1, 10)
@@ -44,6 +52,7 @@ while runToken:
         print("Please verify that you are a human.")
         print(f"What is {verifyX} + {verifyY}?")
         verifyInput = input()
+        call("clear", shell=True)
         verifyInput = int(verifyInput)
         if verifyInput == verifySolution:
             print("Alright, try again to access!")

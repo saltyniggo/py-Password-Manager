@@ -1,14 +1,20 @@
 from sqlite3 import connect
+from subprocess import call
 
 conn = connect('donthackmeplease.db')
 
 
 def inputdata():
     account = input("Enter account: ")
+    call("clear", shell=True)
     website = input("Enter website: ")
+    call("clear", shell=True)
     email = input("Enter email: ")
+    call("clear", shell=True)
     username = input("Enter username: ")
+    call("clear", shell=True)
     password = input("Enter password: ")
+    call("clear", shell=True)
     if account and password and (email or username):
         cur = conn.cursor()
         cur.execute(
