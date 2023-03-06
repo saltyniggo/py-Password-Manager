@@ -13,7 +13,7 @@ while runToken:
         print("Welcome to your password manager")
         print("")
         print("Please enter the Master Password:")
-        userMasterPassword = input()
+        userMasterPassword: str = input()
     if userMasterPassword == masterPassword or accessSucceeded:
         if not accessSucceeded:
             accessSucceeded = True
