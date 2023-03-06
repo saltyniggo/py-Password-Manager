@@ -1,37 +1,38 @@
 import random
 import sqlite3
-from access import accessData
-from input import inputData
+from access import accessdata
+from input import inputdata
 
 masterPassword = '1234'
 runToken = True
 accessAttempts = 0
 accessSucceeded = False
 
-while runToken == True:
-    if accessSucceeded == False:
+while runToken:
+    if not accessSucceeded:
         print("Welcome to your password manager")
         print("")
         print("Please enter the Master Password:")
-        userMasterPassword = input("")
+        userMasterPassword = input()
     if userMasterPassword == masterPassword or accessSucceeded:
-        if accessSucceeded == False:
+        if not accessSucceeded:
             accessSucceeded = True
             print("Access successful!")
         conn = sqlite3.connect('donthackmeplease.db')
         conn.execute('''CREATE TABLE IF NOT EXISTS passwords
-                     (website TEXT,
+                     (account TEXT,
+                      website TEXT,
                       email TEXT,
                       username TEXT,
                       password TEXT NOT NULL);''')
-        print("Was willst du tun?:")
+        print("What do you want to do?:")
         userSelection = input('')
         if userSelection == '1':
-            accessData()
+            accessdata()
         elif userSelection == '2':
-            inputData()
-        elif userSelection == '3':
-            changeData()
+            inputdata()
+        # elif userSelection == '3':
+            # changedata()
         else:
             print("Wrong input")
     elif accessAttempts >= 5:
