@@ -9,17 +9,31 @@ accessSucceeded = False
 
 
 def accessdata():
-    accountlogin = input("Which login data do you need?: ")
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM passwords WHERE account = ?",
-                (accountlogin,))
-    rows = cur.fetchall()
-    if len(rows) == 0:
-        print("No matching login data found.")
+    print("Which login data do you need?")
+    print("all is also possible")
+    accountlogin = input("")
+    if accountlogin == "all":
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM passwords")
+        rows = cur.fetchall()
+        if len(rows) == 0:
+            print("No matching login data found.")
+        else:
+            for row in rows:
+                call("clear", shell=True)
+                print(row)
     else:
-        for row in rows:
-            call("clear", shell=True)
-            print(row)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM passwords WHERE account = ?",
+                    (accountlogin,))
+        rows = cur.fetchall()
+        if len(rows) == 0:
+            print("No matching login data found.")
+        else:
+            for row in rows:
+                call("clear", shell=True)
+                print(row)
+
 
 def changedata():
     updateaccount = input("For which account do you want to change the password?: ")
@@ -35,6 +49,24 @@ def changedata():
         conn.execute("UPDATE passwords SET password = ? WHERE account = ?", (updatepassword, updateaccount))
         conn.commit()
         print("Data updated")
+
+
+def deletedata():
+    deleteaccount = input("Enter account: ")
+    call("clear", shell=True)
+    deletepassword = input("Enter password: ")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM passwords WHERE account = ? AND password = ?",
+                (deleteaccount, deletepassword))
+    rows = cur.fetchall()
+    if len(rows) == 0:
+        call("clear", shell=True)
+        print("No matching account found.")
+    else:
+        conn.execute("DELETE FROM passwords WHERE account = ? AND password = ?", (deleteaccount, deletepassword))
+        conn.commit()
+        call("clear", shell=True)
+        print("Data deleted")
 
 
 def inputdata():
@@ -88,6 +120,7 @@ while runToken:
         print("1 - Access Data")
         print("2 - Input Data")
         print("3 - Change Data")
+        print("4 - Delete Data")
         userSelection = input('')
         call("clear", shell=True)
         if userSelection == '1':
@@ -96,6 +129,8 @@ while runToken:
             inputdata()
         elif userSelection == '3':
             changedata()
+        elif userSelection == '4':
+            deletedata()
         else:
             print("Wrong input")
 
